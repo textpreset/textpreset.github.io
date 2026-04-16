@@ -56,12 +56,12 @@ nav {
   gap: 8px;
 }
 
-.nav-logo-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--primary);
+.nav-logo-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
   display: inline-block;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
 }
 
 .nav-links {
@@ -120,6 +120,17 @@ nav {
   max-width: 740px;
   margin: 0 auto;
   position: relative;
+}
+
+.hero-app-icon {
+  margin-bottom: 28px;
+}
+
+.hero-app-icon img {
+  width: 96px;
+  height: 96px;
+  border-radius: 22px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 
 .hero-badge {
@@ -218,6 +229,7 @@ nav {
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
+  justify-content: safe center;
 }
 
 .screenshots-track::-webkit-scrollbar { display: none; }
