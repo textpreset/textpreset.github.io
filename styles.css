@@ -59,9 +59,11 @@ nav {
 .nav-logo-icon {
   width: 28px;
   height: 28px;
+  max-width: 28px;
   border-radius: 7px;
   display: inline-block;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
 }
 
 .nav-links {
@@ -129,6 +131,7 @@ nav {
 .hero-app-icon img {
   width: 96px;
   height: 96px;
+  max-width: 96px;
   border-radius: 22px;
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08);
 }
