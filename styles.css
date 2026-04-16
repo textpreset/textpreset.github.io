@@ -358,35 +358,43 @@ nav {
 }
 
 .use-case-pill {
-  background: var(--bg-subtle);
+  background: white;
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 20px;
+  border-radius: var(--radius);
+  padding: 28px;
   text-align: center;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.use-case-pill:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
 }
 
 .use-case-pill .uc-icon {
-  width: 48px;
-  height: 48px;
+  width: 46px;
+  height: 46px;
   background: var(--primary-light);
-  border-radius: 12px;
+  border-radius: 11px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--primary);
-  margin: 0 auto 12px;
+  margin: 0 auto 18px;
 }
 
 .use-case-pill h4 {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
 }
 
 .use-case-pill p {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--text-muted);
-  line-height: 1.5;
+  line-height: 1.65;
 }
 
 /* ── Pricing ── */
