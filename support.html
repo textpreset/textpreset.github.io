@@ -16,6 +16,96 @@
   <link rel="apple-touch-icon" href="icon.png">
   <link rel="stylesheet" href="styles.css?v=3">
   <meta name="apple-itunes-app" content="app-id=6762204686">
+
+  <!-- FAQ structured data — enables Google rich results -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I enable the Text Preset keyboard?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Go to your iPhone Settings → General → Keyboard → Keyboards → Add New Keyboard, then select Text Preset. To allow full access (required for iCloud sync), tap the keyboard name and toggle Allow Full Access."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I switch to the Text Preset keyboard while typing?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "While using any app, tap and hold the globe icon at the bottom-left of your keyboard, then select Text Preset from the list."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "My phrases aren't showing in the keyboard. What do I do?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Make sure Full Access is enabled for the keyboard (Settings → General → Keyboard → Keyboards → Text Preset → Allow Full Access). This is required for the keyboard to read your phrase library. If they still don't appear, try force-quitting the app and reopening it."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What are smart variables and how do I use them?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Variables let you create dynamic phrases. Use {{name}} for a free-text prompt, {{yes; no; maybe}} for a pick list, {{@date}} for today's date, or {{@date +7}} for a date offset. When you tap the phrase in the keyboard, a guided sheet walks you through filling in each variable before inserting."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does iCloud sync work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Text Preset uses Apple's CloudKit to sync your phrases across all your devices signed into the same Apple ID. Changes sync automatically and silently — no manual sync button needed. Full Access must be enabled on the keyboard for sync to work within the keyboard extension."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is included in the Free plan?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Free plan includes up to 20 phrases, up to 3 tags, the full keyboard in every app, all 8 starter template packs, and iCloud sync. It's a complete experience — the limit is just on how many phrases you can store."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does Pro include, and how much does it cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pro is a one-time in-app purchase (no subscription, no renewal). It unlocks unlimited phrases, unlimited tags, Custom Lists for dynamic variables, the full Statistics dashboard, and JSON export and import. The price is shown in the app on your local App Store."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I restore my Pro purchase on a new device?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Open the Text Preset app, go to Settings, and tap Restore Purchases. As long as you're signed into the same Apple ID, your Pro purchase will be restored at no additional charge."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I share phrases with my team?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. You can share individual phrases as a deep link — your teammate taps it to import the phrase instantly. With Pro, you can also export your entire library as a JSON file and share it with anyone."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my phrase data private?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Your phrases are stored on-device and synced privately through Apple's CloudKit (linked to your Apple ID). We never see the content of your phrases."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
