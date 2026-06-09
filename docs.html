@@ -1,0 +1,1553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentation — Text Preset</title>
+  <meta name="description" content="Complete guide to using Text Preset: phrases, variables, tags, template packs, and more.">
+  <link rel="icon" type="image/png" href="icon.png">
+  <link rel="apple-touch-icon" href="icon.png">
+  <link rel="stylesheet" href="styles.css?v=4">
+  <style>
+    /* ── Docs layout ── */
+    .docs-wrapper {
+      display: flex;
+      min-height: calc(100vh - 62px);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ── Sidebar ── */
+    .docs-sidebar {
+      width: 256px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 62px;
+      height: calc(100vh - 62px);
+      overflow-y: auto;
+      border-right: 1px solid var(--border);
+      padding: 32px 0 48px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+
+    .docs-sidebar::-webkit-scrollbar { width: 4px; }
+    .docs-sidebar::-webkit-scrollbar-track { background: transparent; }
+    .docs-sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+    .sidebar-group {
+      margin-bottom: 28px;
+    }
+
+    .sidebar-group-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      padding: 0 24px;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .sidebar-nav {
+      list-style: none;
+    }
+
+    .sidebar-nav a {
+      display: block;
+      padding: 7px 24px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      border-left: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+      line-height: 1.4;
+    }
+
+    .sidebar-nav a:hover {
+      color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .sidebar-nav a.active {
+      color: var(--primary);
+      border-left-color: var(--primary);
+      background: var(--primary-light);
+      font-weight: 600;
+    }
+
+    .sidebar-nav .sub-item a {
+      padding-left: 40px;
+      font-size: 13px;
+    }
+
+    /* ── Docs content ── */
+    .docs-content {
+      flex: 1;
+      min-width: 0;
+      padding: 48px 56px 96px;
+    }
+
+    .docs-section {
+      scroll-margin-top: 80px;
+      margin-bottom: 72px;
+    }
+
+    .docs-section + .docs-section {
+      border-top: 1px solid var(--border);
+      padding-top: 64px;
+    }
+
+    .docs-section h2 {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-bottom: 8px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--primary-light);
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .docs-section > p {
+      color: var(--text-muted);
+      font-size: 16px;
+      line-height: 1.75;
+      margin-bottom: 28px;
+      max-width: 680px;
+    }
+
+    .docs-subsection {
+      scroll-margin-top: 80px;
+      margin-top: 40px;
+    }
+
+    .docs-subsection h3 {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .docs-subsection p {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.75;
+      margin-bottom: 14px;
+      max-width: 680px;
+    }
+
+    .docs-subsection ul, .docs-subsection ol {
+      color: var(--text-muted);
+      padding-left: 22px;
+      margin-bottom: 16px;
+    }
+
+    .docs-subsection li {
+      font-size: 15px;
+      line-height: 1.65;
+      margin-bottom: 6px;
+    }
+
+    /* ── Variable cards ── */
+    .var-card {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .var-card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+
+    .var-badge {
+      background: #0d0d1f;
+      color: #a5b4fc;
+      font-family: 'SF Mono', 'Fira Code', 'Menlo', monospace;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      line-height: 1.6;
+    }
+
+    .var-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .var-desc {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.65;
+      margin-bottom: 0;
+    }
+
+    .var-pro-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: linear-gradient(135deg, #5B5BD6, #8b5cf6);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 100px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    /* ── Code / example blocks ── */
+    .example-block {
+      margin-top: 14px;
+    }
+
+    .example-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .code-block {
+      background: #0d0d1f;
+      border-radius: 10px;
+      padding: 16px 20px;
+      font-family: 'SF Mono', 'Fira Code', 'Menlo', monospace;
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: #e2e8f0;
+      overflow-x: auto;
+      margin-bottom: 10px;
+    }
+
+    .code-block .var-token {
+      color: #a5b4fc;
+      font-weight: 600;
+    }
+
+    .code-block .var-token-green {
+      color: #86efac;
+      font-weight: 600;
+    }
+
+    .code-block .comment {
+      color: #475569;
+    }
+
+    .result-block {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    .result-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #16a34a;
+      margin-bottom: 6px;
+    }
+
+    /* ── Format table ── */
+    .format-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-top: 14px;
+    }
+
+    .format-table th {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      padding: 8px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .format-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      vertical-align: top;
+    }
+
+    .format-table tr:last-child td { border-bottom: none; }
+
+    .format-table td:first-child {
+      font-family: 'SF Mono', 'Fira Code', 'Menlo', monospace;
+      color: #5B5BD6;
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .format-table td:last-child {
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    .format-table-wrap {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-top: 14px;
+    }
+
+    /* ── Step cards ── */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .step {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .step-body h4 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .step-body p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* ── Info box ── */
+    .info-box {
+      background: var(--primary-light);
+      border: 1px solid rgba(91, 91, 214, 0.25);
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin: 20px 0;
+      font-size: 14px;
+      color: var(--primary-dark);
+      line-height: 1.6;
+      display: flex;
+      gap: 10px;
+    }
+
+    .info-box svg { flex-shrink: 0; margin-top: 1px; }
+
+    .pro-box {
+      background: linear-gradient(135deg, #f5f3ff, #ede9fe);
+      border: 1px solid rgba(91, 91, 214, 0.3);
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin: 20px 0;
+      font-size: 14px;
+      color: #4c3d9e;
+      line-height: 1.6;
+      display: flex;
+      gap: 10px;
+    }
+
+    /* ── Mobile sidebar toggle ── */
+    .mobile-sidebar-toggle {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      background: var(--bg-subtle);
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      width: 100%;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      text-align: left;
+    }
+
+    .mobile-sidebar-toggle svg {
+      transition: transform 0.2s;
+    }
+
+    .mobile-sidebar-toggle.open svg {
+      transform: rotate(180deg);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .docs-wrapper { flex-direction: column; }
+      .docs-sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding: 0;
+        display: none;
+      }
+      .docs-sidebar.mobile-open { display: block; }
+      .mobile-sidebar-toggle { display: flex; }
+      .docs-content { padding: 32px 24px 72px; }
+    }
+
+    @media (max-width: 680px) {
+      .docs-content { padding: 24px 20px 64px; }
+      .var-card-header { flex-direction: column; gap: 8px; }
+      .format-table { font-size: 13px; }
+      .format-table th, .format-table td { padding: 8px 10px; }
+    }
+
+    /* ── Inline code ── */
+    code {
+      font-family: 'SF Mono', 'Fira Code', 'Menlo', monospace;
+      font-size: 0.88em;
+      background: #f3f0ff;
+      color: #5B5BD6;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    /* ── Tag pill ── */
+    .tag-pill-demo {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .tag-pill-demo::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+
+    .tag-blue { background: #dbeafe; color: #1d4ed8; }
+    .tag-blue::before { background: #3b82f6; }
+    .tag-green { background: #dcfce7; color: #15803d; }
+    .tag-green::before { background: #22c55e; }
+    .tag-purple { background: #f3e8ff; color: #7e22ce; }
+    .tag-purple::before { background: #a855f7; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="icon.png" alt="Text Preset" class="nav-logo-icon" width="28" height="28">
+      Text Preset
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#features">Features</a></li>
+      <li><a href="index.html#pricing">Pricing</a></li>
+      <li><a href="docs.html" style="color: var(--primary); font-weight: 600;">Docs</a></li>
+      <li><a href="support.html">Support</a></li>
+      <li><a href="https://apps.apple.com/us/app/text-preset-keyboard-phrases/id6762204686"
+          target="_blank" rel="noopener noreferrer" class="nav-cta">Download Free</a></li>
+    </ul>
+  </div>
+</nav>
+
+<button class="mobile-sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()" aria-expanded="false">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  On this page
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+
+<div class="docs-wrapper">
+
+  <!-- Sidebar -->
+  <aside class="docs-sidebar" id="docsSidebar">
+    <div class="sidebar-group">
+      <span class="sidebar-group-label">Getting Started</span>
+      <ul class="sidebar-nav">
+        <li><a href="#setup">Installing the Keyboard</a></li>
+        <li><a href="#first-phrase">Your First Phrase</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-group">
+      <span class="sidebar-group-label">Phrases</span>
+      <ul class="sidebar-nav">
+        <li><a href="#phrases">Creating &amp; Editing</a></li>
+        <li><a href="#inserting">Inserting Phrases</a></li>
+        <li><a href="#organizing">Pinning &amp; Ordering</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-group">
+      <span class="sidebar-group-label">Variables</span>
+      <ul class="sidebar-nav">
+        <li><a href="#variables">Overview</a></li>
+        <li class="sub-item"><a href="#var-text">Text input</a></li>
+        <li class="sub-item"><a href="#var-picker">Dropdown picker</a></li>
+        <li class="sub-item"><a href="#var-date">Auto-date</a></li>
+        <li class="sub-item"><a href="#var-select-date">Date picker</a></li>
+        <li class="sub-item"><a href="#var-time">Auto-time</a></li>
+        <li class="sub-item"><a href="#var-select-time">Time picker</a></li>
+        <li class="sub-item"><a href="#var-number">Number</a></li>
+        <li class="sub-item"><a href="#var-select-number">Number picker</a></li>
+        <li class="sub-item"><a href="#var-daysleft">Days remaining</a></li>
+        <li class="sub-item"><a href="#var-random">Random</a></li>
+        <li class="sub-item"><a href="#var-multiselect">Multi-select</a></li>
+        <li class="sub-item"><a href="#var-multiselect-list">Multi-select from list</a></li>
+        <li class="sub-item"><a href="#var-list">Custom list picker</a></li>
+        <li class="sub-item"><a href="#var-random-list">Random from list</a></li>
+        <li class="sub-item"><a href="#var-phrase">Phrase reference</a></li>
+        <li class="sub-item"><a href="#var-blocks">Conditional blocks</a></li>
+        <li class="sub-item"><a href="#var-clipboard">Clipboard</a></li>
+        <li class="sub-item"><a href="#var-cursor">Cursor position</a></li>
+        <li class="sub-item"><a href="#var-property">Global property</a></li>
+        <li><a href="#date-formats">Date &amp; time formats</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-group">
+      <span class="sidebar-group-label">Organization</span>
+      <ul class="sidebar-nav">
+        <li><a href="#tags">Tags &amp; Colors</a></li>
+        <li><a href="#filtering">Filtering</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-group">
+      <span class="sidebar-group-label">Pro Features</span>
+      <ul class="sidebar-nav">
+        <li><a href="#custom-lists">Custom Lists</a></li>
+        <li><a href="#global-properties">Global Properties</a></li>
+        <li><a href="#smart-rewrite">Smart Rewrite</a></li>
+        <li><a href="#statistics">Statistics</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-group">
+      <span class="sidebar-group-label">More</span>
+      <ul class="sidebar-nav">
+        <li><a href="#template-packs">Template Packs</a></li>
+        <li><a href="#import-export">Import &amp; Export</a></li>
+        <li><a href="#settings">Settings</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- Content -->
+  <main class="docs-content">
+
+    <!-- ── Getting Started ── -->
+    <section class="docs-section" id="setup">
+      <h2>
+        <span class="section-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </span>
+        Installing the Keyboard
+      </h2>
+      <p>Text Preset works as a custom iOS keyboard. You need to enable it in your device Settings once — after that it's available in every app.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>Open the Text Preset app</h4>
+            <p>Tap the keyboard icon on the home screen and follow the setup guide shown on first launch.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>Go to iOS Settings → General → Keyboard → Keyboards</h4>
+            <p>Tap <strong>Add New Keyboard…</strong> and select <strong>Text Preset</strong> from the list.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>Enable Full Access</h4>
+            <p>Tap the Text Preset entry and toggle on <strong>Allow Full Access</strong>. This is required for iCloud sync and usage statistics. Text Preset does not send your data to any server.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h4>Switch to Text Preset in any app</h4>
+            <p>Tap any text field to open the keyboard, then hold the globe (🌐) icon and select <strong>Text Preset</strong>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── First Phrase ── -->
+    <section class="docs-section" id="first-phrase">
+      <h2>
+        <span class="section-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </span>
+        Your First Phrase
+      </h2>
+      <p>Open the Text Preset app, tap the <strong>+</strong> button, type your text, and save. That's it — your phrase is immediately available in the keyboard.</p>
+      <div class="info-box">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>You can also save any text you copied from another app: switch to Text Preset keyboard and tap the <strong>Save as phrase</strong> button that appears in the header.</span>
+      </div>
+    </section>
+
+    <!-- ── Phrases ── -->
+    <section class="docs-section" id="phrases">
+      <h2>
+        <span class="section-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </span>
+        Creating &amp; Editing Phrases
+      </h2>
+      <p>Each phrase is a block of text that can contain plain text, line breaks, and any number of variables. Tap a phrase in the list to open the editor.</p>
+
+      <div class="docs-subsection">
+        <h3>Alias</h3>
+        <p>An alias is a short identifier for a phrase that lets you reference it from other phrases using <code>{{@phrase=alias}}</code>. Set it in the editor below the phrase text. Aliases must be unique across your library.</p>
+      </div>
+
+      <div class="docs-subsection" id="inserting">
+        <h3>Inserting Phrases</h3>
+        <p>In the keyboard, tap a phrase chip to insert it directly. If the phrase contains variables, a guided sheet will walk you through each one before inserting.</p>
+        <ul>
+          <li>Tap once — instant insert (no variables) or opens the variable fill-in sheet</li>
+          <li>Long-press — shows a floating preview; hold and release to insert, or use Smart Rewrite (Pro)</li>
+          <li>Copy from the main app — tap the phrase row → long-press → <strong>Copy</strong></li>
+        </ul>
+      </div>
+
+      <div class="docs-subsection" id="organizing">
+        <h3>Pinning &amp; Ordering</h3>
+        <p>Pin a phrase to keep it at the top of the list regardless of sort order. Long-press a phrase in the main app and tap <strong>Pin</strong>. Drag to reorder, or enable <strong>Sort by Usage</strong> in Settings to automatically surface frequently used phrases.</p>
+      </div>
+    </section>
+
+    <!-- ── Variables overview ── -->
+    <section class="docs-section" id="variables">
+      <h2>
+        <span class="section-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 9.5 9.5 3 12l6.5 2.5L12 21l2.5-6.5L21 12l-6.5-2.5z"/></svg>
+        </span>
+        Variables
+      </h2>
+      <p>Variables are placeholders inside your phrase text that get filled in when you copy or insert. Wrap them in double curly braces: <code>{{…}}</code>. The app inserts the variable picker button directly in the editor so you never need to type syntax by hand.</p>
+      <div class="info-box">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>Use the <strong>Insert Variable</strong> button (sparkle icon) in the phrase editor to add any variable type from a menu — no need to remember the syntax.</span>
+      </div>
+
+      <!-- Text input -->
+      <div class="docs-subsection" id="var-text">
+        <h3>Text Input</h3>
+        <div class="var-card">
+          <div class="var-card-header">
+            <span class="var-badge">{{name}}</span>
+            <div>
+              <div class="var-title">Free-text placeholder</div>
+              <div class="var-desc">When inserting, the user types a value into a text field. The label inside the braces is shown as the field name.</div>
+            </div>
+          </div>
+          <div class="example-block">
+            <div class="example-label">Phrase text</div>
+            <div class="code-block">Hi <span class="var-token">{{customer name}}</span>, thanks for reaching out about your order #<span class="var-token">{{order number}}</span>.</div>
+            <div class="result-label">After filling in</div>
+            <div class="result-block">Hi Sarah, thanks for reaching out about your order #48291.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Picker -->
+      <div class="docs-subsection" id="var-picker">
+        <h3>Dropdown Picker</h3>
+        <div class="var-card">
+          <div class="var-card-header">
+            <span class="var-badge">{{opt1; opt2; opt3}}</span>
+            <div>
+              <div class="var-title">Single-choice picker</div>
+              <div class="var-desc">Separate options with semicolons. When inserting, a wheel picker lets the user choose one value.</div>
+            </div>
+          </div>
+          <div class="example-block">
+            <div class="example-label">Phrase text</div>
+            <div class="code-block">Your issue has been <span class="var-token">{{resolved; escalated; logged}}</span>. We will follow up within <span class="var-token">{{24 hours; 2 business days; 1 week}}</span>.</div>
+            <div class="result-label">After filling in</div>
+            <div class="result-block">Your issue has been escalated. We will follow up within 2 business days.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Auto-date -->
+      <div class="docs-subsection" id="var-date">
+        <h3>Auto-Date</h3>
+        <div class="var-card">
+          <div class="var-card-header">
+            <span class="var-badge">{{@date}}</span>
+            <div>
+              <div class="var-title">Automatically inserts today's date</div>
+              <div class="var-desc">No user interaction needed. Supports offsets and format specifiers. Format defaults to <em>medium</em> (e.g. Jun 9, 2026).</div>
+            </div>
+          </div>
+          <div class="example-block">
+            <div class="example-label">Syntax variations</div>
+            <div class="code-block"><span class="var-token">{{@date}}</span>             <span class="comment">→ Jun 9, 2026</span>
+<span class="var-token">{{@date +3}}</span>          <span class="comment">→ Jun 12, 2026  (3 days from now)</span>
+<span class="var-token">{{@date -1}}</span>          <span class="comment">→ Jun 8, 2026   (yesterday)</span>
+<span class="var-token">{{@date=long}}</span>        <span class="comment">→ June 9, 2026</span>
+<span class="var-token">{{@date=weekday}}</span>     <span class="comment">→ Monday</span>
+<span class="var-token">{{@date +7=full}}</span>     <span class="comment">→ Monday, June 16, 2026</span>
+<span class="var-token">{{@date=month}}</span>       <span class="comment">→ June</span>
+<span class="var-token">{{@date=year}}</span>        <span class="comment">→ 2026</span></div>
+            <div class="example-label">Example phrase</div>
+            <div class="code-block">Invoice date: <span class="var-token">{{@date}}</span>
+Due date: <span class="var-token">{{@date +30=long}}</span></div>
+            <div class="result-label">Result</div>
+            <div class="result-block">Invoice date: Jun 9, 2026<br>Due date: July 9, 2026</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Select date -->
+      <div class="docs-subsection" id="var-select-date">
+        <h3>Interactive Date Picker</h3>
+        <div class="var-card">
+          <div class="var-card-header">
+            <span class="var-badge">{{@select_date}}</span>
+            <div>
+              <div class="var-title">User picks a date before inserting</div>
+              <div class="var-desc">Shows a calendar date picker. Optionally specify a format with <code>=fmt</code> or a default offset with <code>+N</code>.</div>
+            </div>
+          </div>
+          <div class="example-block">
+            <div class="example-label">Syntax variations</div>
+            <div class="code-block"><span class="var-token">{{@select_date}}</span>           <span class="comment">→ picker, format chosen at insert time</span>
+<span class="var-token">{{@select_date=short}}</span>     <span class="comment">→ picker, output as short date (e.g. 6/9/26)</span>
+<span class="var-token">{{@select_date=long}}</span>      <span class="comment">→ picker, output as long date</span>
+<span class="var-token">{{@select_date +1=full}}</span>   <span class="comment">→ picker starts at tomorrow, full format</span></div>
+            <div class="example-label">Example phrase</div>
+            <div class="code-block">Please schedule your appointment for <span class="var-token">{{@select_date=long}}</span>.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Auto-time -->
+      <div class="docs-subsection" id="var-time">
+        <h3>Auto-Time</h3>
+        <div class="var-card">
+          <div class="var-card-header">
+            <span class="var-badge">{{@time}}</span>
+            <div>
+              <div class="var-title">Automatically inserts the current time</div>
+              <div class="var-desc">No user interaction. Supports minute offsets and format specifiers.</div>
+            </div>
+          </div>
+          <div class="example-block">
+            <div class="example-label">Syntax variations</div>
+            <div class="code-block"><span class="var-token">{{@time}}</span>             <span class="comment">→ 14:35  (current time, short format)</span>
+<span class="var-token">{{@time +30}}</span>         <span class="comment">→ 15:05  (30 minutes from now)</span>
+<span class="var-token">{{@time=medium}}</span>      <span class="comment">→ 2:35:00 PM</span>
+<span class="var-token">{{@time=long}}</span>        <span class="comment">→ 2:35:00 PM GMT+3</span></div>
+            <div class="example-label">Example phrase</div>
+            <div class="code-block">Call logged at <span class="var-token">{{@time}}</span> on <span class="var-token">{{@date}}</span>.</div>
+            <div class="result-label">Result</div>
+            <div class="result-block">Call logged at 14:35 on Jun 9, 2026.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Select time -->
+      <div class="docs-subsection" id="var-select-time">
+        <h3>Interactive Time Picker</h3>
+        <div class="var-card">
+          <div class="var-card-header">
+            <span class="var-badge">{{@select_time}}</span>
+            <div>
+              <div class="var-title">User picks a time before inserting</div>
+              <div class="var-desc">Shows a scroll-wheel time picker. Optionally lock the output format with <code>=fmt</code>.</div>
+            </div>
+          </div>
+          <div class="example-block">
+            <div class="example-label">Example phrase</div>
+            <div class="code-block">Meeting starts at <span class="var-token">{{@select_time=short}}</span>. Please join 5 minutes early.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Number -->
+      <div class="docs-subsection" id="var-number">
+        <h3>Number Input</h3>
+        <div class="var-card">
+          <div class="var-card-header">
+            <span class="var-badge">{{@number}}</span>
+            <div>
+              <div class="var-title">User types a number before inserting</div>
+              <div class="var-desc">Like a text input, but opens the numeric keyboard. Use <code>{{@number=Label}}</code> to give the field a descriptive name shown above the input — the same way <code>{{customer name}}</code> labels a text field.</div>
+            </div>
+          </div>
+          <div class="example-block">
+            <div class="example-label">Syntax variations</div>
+            <div class="code-block"><span class="var-token">{{@number}}</span>              <span class="comment">→ numeric input, no label</span>
+<span class="var-token">{{@number=Ticket ID}}</span>    <span class="comment">→ numeric input labelled "Ticket ID"</span>
+<span class="var-token">{{@number=Quantity}}</span>     <span class="comment">→ numeric input labelled "Quantity"</span></div>
+            <div class="example-label">Example phrase</div>
+            <div class="code-block">See Jira ticket <span class="var-token">{{@number=Ticket ID}}</span> for details.</div>
+            <div class="result-label">After filling in</div>
+            <div class="result-block">See Jira ticket 4821 for details.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Select number -->
+      <div class="docs-subsection" id="var-select-number">
+        <h3>Number Picker</h3>
+        <div class="var-card">
+          <div class="var-card-header">
+            <span class="var-badge">{{@select_number=label; min; max; step}}</span>
+            <div>
+              <div class="var-title">Interactive spin-wheel number picker</div>
+              <div class="var-desc">The user picks a value between <code>min</code> and <code>max</code> in increments of <code>step</code>. The label is shown above the picker.</div>
+            </div>
+          </div>
+          <div class="example-block">
+            <div class="example-label">Syntax</div>
+            <div class="code-block"><span class="var-token">{{@select_number=Quantity; 1; 100; 1}}</span>
+<span class="var-token">{{@select_number=Rating; 1; 10; 1}}</span>
+<span class="var-token">{{@select_number=Discount %; 5; 50; 5}}</span></div>
+            <div class="example-label">Example phrase</div>
+            <div class="code-block">We'd like to offer you a <span class="var-token">{{@select_number=Discount %; 5; 50; 5}}</span>% discount on your next order.</div>
+            <div class="result-label">Result</div>
+            <div class="result-block">We'd like to offer you a 15% discount on your next order.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Days left -->
+      <div class="docs-subsection" id="var-daysleft">
+        <h3>Days Remaining</h3>
+        <div class="var-card">
+          <div class="var-card-header">
+            <span class="var-badge">{{@daysleft=yyyy-MM-dd}}</span>
+            <div>
+              <div class="var-title">Number of days until a fixed date</div>
+              <div class="var-desc">Auto-calculated at insert time. Always 0 or more — never negative. Useful for countdowns to deadlines, releases, or events.</div>
+            </div>
+          </div>
+          <div class="example-block">
+            <div class="example-label">Example phrase</div>
+            <div class="code-block">Only <span class="var-token">{{@daysleft=2026-12-31}}</span> days left until the end of the year!</div>
+            <div class="result-label">Result (inserted on Jun 9, 2026)</div>
+            <div class="result-block">Only 205 days left until the end of the year!</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Random -->
+      <div class="docs-subsection" id="var-random">
+        <h3>Random</h3>
+        <div class="var-card">
+          <div class="var-card-header">
+            <span class="var-badge">{{@random; a; b; c}}</span>
+            <div>
+              <div class="var-title">Picks a random option automatically</div>
+              <div class="var-desc">No user interaction. A random value from the semicolon-separated list is chosen each time the phrase is inserted. Great for varied greetings, openers, or sign-offs.</div>
+            </div>
+          </div>
+          <div class="example-block">
+            <div class="example-label">Example phrase</div>
+            <div class="code-block"><span class="var-token">{{@random; Hope you're having a great day!; Hope your week is off to a great start!; Hope all is well!}}</span>
+
+I wanted to follow up on your recent order.</div>
+            <div class="result-label">Example result</div>
+            <div class="result-block">Hope your week is off to a great start!<br><br>I wanted to follow up on your recent order.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Multi-select -->
+      <div class="docs-subsection" id="var-multiselect">
+        <h3>Multi-Select Picker</h3>
+        <div class="var-card">
+          <div class="var-card-header">
+            <span class="var-badge">{{@multiselect; a; b; c}}</span>
+            <div>
+              <div class="var-title">User picks one or more options</div>
+              <div class="var-desc">Shows a checklist. Selected values are joined with a comma and space.</div>
+            </div>
+          </div>
+          <div class="example-block">
+            <div class="example-label">Example phrase</div>
+            <div class="code-block">The following items require your attention: <span class="var-token">{{@multiselect; Invoice; Contract; NDA; Proposal}}</span>. Please review and sign by end of day.</div>
+            <div class="result-label">User selected Invoice, NDA</div>
+            <div class="result-block">The following items require your attention: Invoice, NDA. Please review and sign by end of day.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Multi-select from list -->
+      <div class="docs-subsection" id="var-multiselect-list">
+        <h3>Multi-Select from Custom List <span class="var-pro-badge">Pro</span></h3>
+        <div class="var-card">
+          <div class="var-card-header">
+            <span class="var-badge">{{@multiselect_list=listName}}</span>
+            <div>
+              <div class="var-title">Multi-select checklist from a Custom List</div>
+              <div class="var-desc">Like <code>{{@multiselect}}</code> but options come from a saved Custom List. Selected values are joined with a comma and space. Update the list once — all phrases using it get the new options.</div>
+            </div>
+          </div>
+          <div class="example-block">
+            <div class="example-label">Example phrase</div>
+            <div class="code-block">Issues found during review: <span class="var-token">{{@multiselect_list=Review Checklist}}</span>.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Custom list -->
+      <div class="docs-subsection" id="var-list">
+        <h3>Custom List Picker <span class="var-pro-badge">Pro</span></h3>
+        <div class="var-card">
+          <div class="var-card-header">
+            <span class="var-badge">{{@list=listName}}</span>
+            <div>
+              <div class="var-title">Single-choice picker from a saved Custom List</div>
+              <div class="var-desc">Shows a wheel picker populated from your Custom List. Great for product names, team members, standard responses — change the list once and all phrases update automatically.</div>
+            </div>
+          </div>
+          <div class="example-block">
+            <div class="example-label">Example phrase</div>
+            <div class="code-block">Assigned to: <span class="var-token">{{@list=Team Members}}</span>
+Priority: <span class="var-token">{{low; medium; high; critical}}</span>
+Product: <span class="var-token">{{@list=Products}}</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Random from list -->
+      <div class="docs-subsection" id="var-random-list">
+        <h3>Random from Custom List <span class="var-pro-badge">Pro</span></h3>
+        <div class="var-card">
+          <div class="var-card-header">
+            <span class="var-badge">{{@random_from_list=listName}}</span>
+            <div>
+              <div class="var-title">Auto-picks a random item from a Custom List</div>
+              <div class="var-desc">No user interaction — a random value is chosen from the named Custom List at insert time. Pair with <code>{{@random; …}}</code> when you want randomness without a predefined list. Requires Pro.</div>
+            </div>
+          </div>
+          <div class="example-block">
+            <div class="example-label">Example phrase</div>
+            <div class="code-block"><span class="var-token">{{@random_from_list=Opening Lines}}</span>
+
+I wanted to follow up on your recent support request.</div>
+            <div class="result-label">Result (one random opening from the list)</div>
+            <div class="result-block">Hope you're having a great week!<br><br>I wanted to follow up on your recent support request.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phrase reference -->
+      <div class="docs-subsection" id="var-phrase">
+        <h3>Phrase Reference</h3>
+        <div class="var-card">
+          <div class="var-card-header">
+            <span class="var-badge">{{@phrase=alias}}</span>
+            <div>
+              <div class="var-title">Embeds another phrase by alias</div>
+              <div class="var-desc">The referenced phrase is resolved recursively at insert time. Circular references are detected and skipped. The referenced phrase can itself contain variables.</div>
+            </div>
+          </div>
+          <div class="example-block">
+            <div class="example-label">Setup</div>
+            <div class="code-block"><span class="comment">Phrase "signature" (alias: sig):</span>
+Best regards,
+Alex Johnson | Support Lead
+support@company.com</div>
+            <div class="example-label">Referencing phrase</div>
+            <div class="code-block">Hi <span class="var-token">{{customer name}}</span>,
+
+Your issue has been resolved. Let us know if you need anything else.
+
+<span class="var-token">{{@phrase=sig}}</span></div>
+            <div class="result-label">Result</div>
+            <div class="result-block">Hi Maria,<br><br>Your issue has been resolved. Let us know if you need anything else.<br><br>Best regards,<br>Alex Johnson | Support Lead<br>support@company.com</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blocks -->
+      <div class="docs-subsection" id="var-blocks">
+        <h3>Conditional Blocks</h3>
+        <div class="var-card">
+          <div class="var-card-header">
+            <span class="var-badge">{{@blockstart=name}} … {{@blockend}}</span>
+            <div>
+              <div class="var-title">Named sections the user can include or skip</div>
+              <div class="var-desc">When copying, a checklist appears letting the user choose which blocks to include. Blocks you don't select are removed from the output. Wrap any part of your phrase in a named block to make it optional.</div>
+            </div>
+          </div>
+          <div class="example-block">
+            <div class="example-label">Example phrase</div>
+            <div class="code-block">Hi <span class="var-token">{{name}}</span>,
+
+Thank you for your message.
+
+<span class="var-token">{{@blockstart=Apology}}</span>
+We sincerely apologize for the inconvenience caused.
+<span class="var-token">{{@blockend}}</span>
+
+<span class="var-token">{{@blockstart=Resolution}}</span>
+Your issue has been fully resolved on our end.
+<span class="var-token">{{@blockend}}</span>
+
+<span class="var-token">{{@blockstart=Follow-up}}</span>
+Our team will reach out within 24 hours with an update.
+<span class="var-token">{{@blockend}}</span>
+
+Kind regards,
+Support Team</div>
+            <div class="result-label">User included Apology + Follow-up</div>
+            <div class="result-block">Hi James,<br><br>Thank you for your message.<br><br>We sincerely apologize for the inconvenience caused.<br><br>Our team will reach out within 24 hours with an update.<br><br>Kind regards,<br>Support Team</div>
+          </div>
+        </div>
+      </div>
+      <!-- Clipboard -->
+      <div class="docs-subsection" id="var-clipboard">
+        <h3>Clipboard</h3>
+        <div class="var-card">
+          <div class="var-card-header">
+            <span class="var-badge">{{@clipboard}}</span>
+            <div>
+              <div class="var-title">Pastes the current clipboard content</div>
+              <div class="var-desc">Automatically replaced with whatever is on the clipboard at insert time. No user interaction. Useful for wrapping clipboard text in a fixed template.</div>
+            </div>
+          </div>
+          <div class="example-block">
+            <div class="example-label">Example phrase</div>
+            <div class="code-block">Please review the following link:
+<span class="var-token">{{@clipboard}}</span>
+
+Let me know if you have any questions.</div>
+            <div class="result-label">Result (clipboard contained a URL)</div>
+            <div class="result-block">Please review the following link:<br>https://example.com/report<br><br>Let me know if you have any questions.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cursor -->
+      <div class="docs-subsection" id="var-cursor">
+        <h3>Cursor Position</h3>
+        <div class="var-card">
+          <div class="var-card-header">
+            <span class="var-badge">{{@cursor}}</span>
+            <div>
+              <div class="var-title">Places the cursor after insertion</div>
+              <div class="var-desc">After the phrase is inserted, the cursor is moved to where <code>{{@cursor}}</code> appears in the text. The token itself is removed. Useful when you want to land in a specific spot to continue typing — for example, right before a closing parenthesis or inside a template field.</div>
+            </div>
+          </div>
+          <div class="example-block">
+            <div class="example-label">Example phrase</div>
+            <div class="code-block">Dear <span class="var-token">{{@cursor}}</span>,
+
+Thank you for your email. I will get back to you shortly.</div>
+            <div class="result-label">Result — cursor lands after "Dear "</div>
+            <div class="result-block">Dear <em style="color:var(--primary)">│</em>,<br><br>Thank you for your email. I will get back to you shortly.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Global property -->
+      <div class="docs-subsection" id="var-property">
+        <h3>Global Property</h3>
+        <div class="var-card">
+          <div class="var-card-header">
+            <span class="var-badge">{{@property=key}}</span>
+            <div>
+              <div class="var-title">Auto-fills a saved global value by key</div>
+              <div class="var-desc">Global Properties are key-value pairs saved once in Settings → Global Properties. Every phrase using that key always gets the current value — change your name, title, or phone number in one place and all phrases update instantly. No user interaction at insert time.</div>
+            </div>
+          </div>
+          <div class="example-block">
+            <div class="example-label">Setup in Settings → Global Properties</div>
+            <div class="code-block"><span class="comment">name → Alex Johnson</span>
+<span class="comment">title → Senior Support Manager</span>
+<span class="comment">email → alex@company.com</span>
+<span class="comment">phone → +1 555 000 1234</span></div>
+            <div class="example-label">Phrase text</div>
+            <div class="code-block">Best regards,
+<span class="var-token">{{@property=name}}</span> | <span class="var-token">{{@property=title}}</span>
+<span class="var-token">{{@property=email}}</span> · <span class="var-token">{{@property=phone}}</span></div>
+            <div class="result-label">Result</div>
+            <div class="result-block">Best regards,<br>Alex Johnson | Senior Support Manager<br>alex@company.com · +1 555 000 1234</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Date formats ── -->
+    <section class="docs-section" id="date-formats">
+      <h2>
+        <span class="section-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </span>
+        Date &amp; Time Formats
+      </h2>
+      <p>Append <code>=format</code> to any <code>@date</code> or <code>@time</code> variable to control the output style. Combine with offsets: <code>{{@date +3=long}}</code>.</p>
+
+      <div class="docs-subsection">
+        <h3>Date formats</h3>
+        <div class="format-table-wrap">
+          <table class="format-table">
+            <thead><tr><th>Format value</th><th>Example output</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td>short</td><td>6/9/26</td><td>Numeric, locale-aware</td></tr>
+              <tr><td>medium</td><td>Jun 9, 2026</td><td>Default when no format specified</td></tr>
+              <tr><td>long</td><td>June 9, 2026</td><td></td></tr>
+              <tr><td>full</td><td>Monday, June 9, 2026</td><td>Includes weekday</td></tr>
+              <tr><td>month</td><td>June</td><td>Month name only</td></tr>
+              <tr><td>year</td><td>2026</td><td>Year only</td></tr>
+              <tr><td>weekday</td><td>Monday</td><td>Day of week only</td></tr>
+              <tr><td>quarter</td><td>Q2</td><td>Quarter (Q1–Q4)</td></tr>
+              <tr><td>week</td><td>24</td><td>ISO week number</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="docs-subsection">
+        <h3>Time formats</h3>
+        <div class="format-table-wrap">
+          <table class="format-table">
+            <thead><tr><th>Format value</th><th>Example output</th></tr></thead>
+            <tbody>
+              <tr><td>short</td><td>2:35 PM (default)</td></tr>
+              <tr><td>medium</td><td>2:35:00 PM</td></tr>
+              <tr><td>long</td><td>2:35:00 PM GMT+3</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Tags ── -->
+    <section class="docs-section" id="tags">
+      <h2>
+        <span class="section-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><circle cx="7" cy="7" r="1.5" fill="currentColor" stroke="none"/></svg>
+        </span>
+        Tags &amp; Colors
+      </h2>
+      <p>Tags are color-coded labels that let you group and filter phrases. Assign multiple tags to a single phrase. Manage tags in <strong>Settings → Tags</strong>.</p>
+
+      <div class="docs-subsection">
+        <h3>Creating tags</h3>
+        <p>Go to <strong>Settings → Tags</strong> and tap <strong>Add Tag</strong>. Give it a name and pick a color. Tags are available in the phrase editor immediately.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;">
+          <span class="tag-pill-demo tag-blue">Customer Support</span>
+          <span class="tag-pill-demo tag-green">Sales</span>
+          <span class="tag-pill-demo tag-purple">Internal</span>
+        </div>
+      </div>
+
+      <div class="docs-subsection" id="filtering">
+        <h3>Filtering in the keyboard</h3>
+        <p>The top row of the Text Preset keyboard shows your tags. Tap one or more to filter phrases. Tap again to deselect.</p>
+        <p><strong>Filter mode</strong> — choose between:</p>
+        <ul>
+          <li><strong>Any tag</strong> (OR) — shows phrases that have at least one selected tag</li>
+          <li><strong>All tags</strong> (AND) — shows only phrases that have every selected tag</li>
+        </ul>
+        <p>Toggle the filter mode with the segmented control that appears when the tag row is open.</p>
+      </div>
+
+      <div class="info-box">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>Free plan: up to 3 tags. Upgrade to Pro for unlimited tags.</span>
+      </div>
+    </section>
+
+    <!-- ── Template Packs ── -->
+    <section class="docs-section" id="template-packs">
+      <h2>
+        <span class="section-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+        </span>
+        Template Packs
+      </h2>
+      <p>Template Packs are curated collections of ready-to-use phrases. Import any pack in one tap — phrases land in your library tagged and organised, ready to customise.</p>
+
+      <div class="docs-subsection">
+        <h3>Available packs</h3>
+        <ul>
+          <li><strong>Customer Support</strong> — acknowledgements, resolutions, escalations, follow-ups</li>
+          <li><strong>Sales &amp; Outreach</strong> — cold outreach, follow-ups, objection handling, closing</li>
+          <li><strong>Email Signatures</strong> — varied professional sign-offs</li>
+          <li><strong>Developer</strong> — PR comments, code review, git messages, standup templates</li>
+          <li><strong>Social Media</strong> — captions, DM replies, engagement comments</li>
+          <li><strong>Meetings</strong> — invites, agendas, follow-up notes, action items</li>
+          <li><strong>HR &amp; Recruiting</strong> — offer letters, interview confirmations, rejections</li>
+          <li><strong>Greetings</strong> — birthday, congratulations, seasonal messages</li>
+        </ul>
+        <p>Browse and import packs in the main app via the grid icon in the top-right corner of the phrase list.</p>
+      </div>
+    </section>
+
+    <!-- ── Custom Lists ── -->
+    <section class="docs-section" id="custom-lists">
+      <h2>
+        <span class="section-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        </span>
+        Custom Lists <span class="var-pro-badge">Pro</span>
+      </h2>
+      <p>Custom Lists are reusable sets of values you can reference in multiple phrases. Changing the list updates all phrases that use it — no need to edit each phrase individually.</p>
+
+      <div class="docs-subsection">
+        <h3>Creating a Custom List</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <h4>Open Settings → Custom Lists</h4>
+              <p>Tap <strong>New List</strong> and give it a name.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <h4>Add items</h4>
+              <p>Enter each value on a new line. Reorder by dragging. Delete by swiping left.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <h4>Use in a phrase</h4>
+              <p>In the phrase editor, insert a variable → Custom List → pick your list. The syntax is <code>{{@list=My List Name}}</code>.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="docs-subsection">
+        <h3>Use cases</h3>
+        <ul>
+          <li><strong>Team members</strong> — add the list once, use it in dozens of assignment templates</li>
+          <li><strong>Product names</strong> — keep product catalogue current without touching every phrase</li>
+          <li><strong>Standard responses</strong> — rotating closings, greetings, or policy references</li>
+          <li><strong>Clients</strong> — client names for outreach templates</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ── Global Properties ── -->
+    <section class="docs-section" id="global-properties">
+      <h2>
+        <span class="section-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        </span>
+        Global Properties
+      </h2>
+      <p>Global Properties are key-value pairs saved once and reused across all your phrases via <code>{{@property=key}}</code>. Change a value once — every phrase that uses that key updates instantly. Perfect for your name, job title, company, or any piece of info you repeat in many templates.</p>
+
+      <div class="docs-subsection">
+        <h3>Managing properties</h3>
+        <p>Go to <strong>Settings → Global Properties</strong> and tap <strong>Add Property</strong>. Enter a key (e.g. <code>name</code>) and a value (e.g. <code>Alex Johnson</code>). Keys are case-sensitive and must be unique.</p>
+      </div>
+
+      <div class="docs-subsection">
+        <h3>Using in phrases</h3>
+        <p>Insert the variable <code>{{@property=key}}</code> anywhere in your phrase text. It resolves automatically at insert time with no user interaction.</p>
+        <div class="example-block">
+          <div class="example-label">Common properties to set up</div>
+          <div class="format-table-wrap">
+            <table class="format-table">
+              <thead><tr><th>Key</th><th>Example value</th></tr></thead>
+              <tbody>
+                <tr><td>name</td><td>Alex Johnson</td></tr>
+                <tr><td>title</td><td>Senior Support Manager</td></tr>
+                <tr><td>company</td><td>Acme Corp</td></tr>
+                <tr><td>email</td><td>alex@acme.com</td></tr>
+                <tr><td>phone</td><td>+1 555 000 1234</td></tr>
+                <tr><td>website</td><td>acme.com/support</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Smart Rewrite ── -->
+    <section class="docs-section" id="smart-rewrite">
+      <h2>
+        <span class="section-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 9.5 9.5 3 12l6.5 2.5L12 21l2.5-6.5L21 12l-6.5-2.5z"/></svg>
+        </span>
+        Smart Rewrite <span class="var-pro-badge">Pro</span>
+      </h2>
+      <p>Smart Rewrite uses Apple Intelligence (on-device AI) to generate tonal variants of your phrase — Formal, Brief, and Friendly — without leaving the keyboard.</p>
+
+      <div class="pro-box">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>Requires: Pro, iOS 26 or later, and Apple Intelligence enabled on your device.</span>
+      </div>
+
+      <div class="docs-subsection">
+        <h3>Using Smart Rewrite in the keyboard</h3>
+        <p>Long-press any phrase chip in the keyboard. A menu appears with three rewrite options: <strong>Formal</strong>, <strong>Brief</strong>, and <strong>Friendly</strong>. Tap one and the rewritten variant is inserted directly.</p>
+      </div>
+
+      <div class="docs-subsection">
+        <h3>Using Smart Rewrite in the editor</h3>
+        <p>Open a phrase for editing and tap the <strong>Smart Rewrite</strong> button (wand icon). Preview all three variants, pick one, and it replaces your current phrase text.</p>
+      </div>
+    </section>
+
+    <!-- ── Statistics ── -->
+    <section class="docs-section" id="statistics">
+      <h2>
+        <span class="section-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </span>
+        Statistics <span class="var-pro-badge">Pro</span>
+      </h2>
+      <p>The Statistics dashboard shows how much time you're saving with Text Preset. All data is local — nothing is sent to external servers.</p>
+
+      <div class="docs-subsection">
+        <h3>Metrics</h3>
+        <ul>
+          <li><strong>Total insertions</strong> — how many times you've inserted phrases across all apps</li>
+          <li><strong>Characters saved</strong> — total characters inserted via Text Preset instead of typed manually</li>
+          <li><strong>Time saved</strong> — estimated at 200 characters per minute (average typing speed)</li>
+          <li><strong>Most used phrase</strong> — your top phrase by insertion count</li>
+          <li><strong>Usage streak</strong> — consecutive days you've used Text Preset</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ── Import / Export ── -->
+    <section class="docs-section" id="import-export">
+      <h2>
+        <span class="section-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        </span>
+        Import &amp; Export
+      </h2>
+      <p>Move your phrases between devices, share with teammates, or back up your library.</p>
+
+      <div class="docs-subsection">
+        <h3>JSON export / import</h3>
+        <p>Go to <strong>Settings → Export</strong> to save your entire library as a JSON file. Share it via AirDrop, email, or any file app. To import, tap a <code>.json</code> file and choose <strong>Open with Text Preset</strong>. Existing phrases are preserved; duplicates are skipped.</p>
+        <div class="example-block">
+          <div class="example-label">JSON file structure</div>
+          <div class="code-block">{
+  <span class="var-token-green">"version"</span>: 1,
+  <span class="var-token-green">"exportDate"</span>: <span class="var-token">"2026-06-09T12:00:00Z"</span>,
+  <span class="var-token-green">"phrases"</span>: [
+    {
+      <span class="var-token-green">"text"</span>: <span class="var-token">"Hi {{customer name}},\n\nThank you for reaching out."</span>,
+      <span class="var-token-green">"tags"</span>: [<span class="var-token">"Support"</span>, <span class="var-token">"Greetings"</span>],
+      <span class="var-token-green">"isPinned"</span>: false,
+      <span class="var-token-green">"alias"</span>: <span class="var-token">"support-greeting"</span>
+    },
+    {
+      <span class="var-token-green">"text"</span>: <span class="var-token">"Best regards,\n{{@property=name}}"</span>,
+      <span class="var-token-green">"tags"</span>: [],
+      <span class="var-token-green">"isPinned"</span>: true,
+      <span class="var-token-green">"alias"</span>: null
+    }
+  ]
+}</div>
+        </div>
+        <div class="format-table-wrap" style="margin-top:12px;">
+          <table class="format-table">
+            <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td>version</td><td>Int</td><td>Always <code>1</code></td></tr>
+              <tr><td>exportDate</td><td>ISO 8601 string</td><td>Date the file was exported</td></tr>
+              <tr><td>phrases[].text</td><td>String</td><td>Full phrase text; <code>\n</code> for line breaks</td></tr>
+              <tr><td>phrases[].tags</td><td>Array of strings</td><td>Tag names; tags are created if they don't exist</td></tr>
+              <tr><td>phrases[].isPinned</td><td>Bool</td><td>Whether the phrase is pinned</td></tr>
+              <tr><td>phrases[].alias</td><td>String or null</td><td>Alias for <code>{{@phrase=alias}}</code> references</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="docs-subsection">
+        <h3>CSV import <span class="var-pro-badge">Pro</span></h3>
+        <p>Import phrases from a CSV or TSV file — useful for migrating from spreadsheets, Notion, or other tools. Available in <strong>Settings → Import CSV</strong>.</p>
+        <div class="example-block">
+          <div class="example-label">CSV format</div>
+          <div class="code-block"><span class="comment">phrase text , tag1 , tag2 , ...</span>
+Hi {{customer name}}, thanks for reaching out.,Support,Greetings
+"Order #{{@number=Order ID}} shipped on {{@date}}.",Support
+Best regards,Signatures</div>
+        </div>
+        <div class="format-table-wrap" style="margin-top:12px;">
+          <table class="format-table">
+            <thead><tr><th>Column</th><th>Required</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td>1st column</td><td>Yes</td><td>Phrase text. Wrap in <code>"quotes"</code> if it contains commas.</td></tr>
+              <tr><td>2nd column+</td><td>No</td><td>Tag names. Each column is a separate tag. Tags are created if missing.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="info-box" style="margin-top:14px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span>Separator is auto-detected: comma by default, semicolon if the file contains no commas. A first-row header (e.g. "text,tag") is automatically skipped.</span>
+        </div>
+      </div>
+
+      <div class="docs-subsection">
+        <h3>Sharing a single phrase</h3>
+        <p>Long-press a phrase → <strong>Share</strong>. This copies a deep link that your teammate can tap to import that exact phrase (text, tags, variables included) into their own Text Preset library.</p>
+      </div>
+
+      <div class="docs-subsection">
+        <h3>Save from any app</h3>
+        <p>Use the iOS share sheet in Safari, Notes, Mail, or any other app — tap <strong>Share → Text Preset</strong> to save the selected text or URL directly as a new phrase.</p>
+      </div>
+    </section>
+
+    <!-- ── Settings ── -->
+    <section class="docs-section" id="settings">
+      <h2>
+        <span class="section-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </span>
+        Settings
+      </h2>
+      <p>Access settings from the gear icon in the main app. Changes sync to the keyboard immediately.</p>
+
+      <div class="docs-subsection">
+        <h3>Sort by Usage Count</h3>
+        <p>When enabled, phrases are automatically sorted by how often you use them — most-used first. Pinned phrases always stay at the top regardless of this setting. Disable to use your manual drag order.</p>
+      </div>
+
+      <div class="docs-subsection">
+        <h3>Auto Spacing</h3>
+        <p>When enabled, Text Preset automatically adds a space after inserting a phrase if the next character isn't punctuation or whitespace. Saves a tap in most message-writing contexts.</p>
+      </div>
+
+      <div class="docs-subsection">
+        <h3>Format on Insert</h3>
+        <p>When enabled, each phrase chip in the keyboard shows three formatting buttons: <strong>UPPER</strong>, <strong>Title</strong>, and <strong>lower</strong>. Tap a button instead of the chip to insert the phrase in that casing. Useful for phrases you use in different contexts (titles, body text, subject lines).</p>
+      </div>
+
+      <div class="docs-subsection">
+        <h3>Smart Rewrite</h3>
+        <p>Toggle AI-powered tone variants on or off. Requires Pro and Apple Intelligence (iOS 26+).</p>
+      </div>
+
+      <div class="docs-subsection">
+        <h3>Language</h3>
+        <p>Override the app language independently from your system locale. Select a language from the list — the app restarts to apply the change. Choose <strong>System</strong> to follow the device language.</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="docs.html">Documentation</a></li>
+      <li><a href="privacy-policy.html">Privacy Policy</a></li>
+      <li><a href="terms.html">Terms &amp; Conditions</a></li>
+      <li><a href="support.html">Support</a></li>
+    </ul>
+    <p>&copy; 2026 Text Preset. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  function toggleSidebar() {
+    const sidebar = document.getElementById('docsSidebar');
+    const toggle = document.getElementById('sidebarToggle');
+    const isOpen = sidebar.classList.toggle('mobile-open');
+    toggle.classList.toggle('open', isOpen);
+    toggle.setAttribute('aria-expanded', isOpen);
+  }
+
+  // Highlight active sidebar link on scroll
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+
+  // Close sidebar on link click (mobile)
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      const sidebar = document.getElementById('docsSidebar');
+      if (sidebar.classList.contains('mobile-open')) {
+        sidebar.classList.remove('mobile-open');
+        document.getElementById('sidebarToggle').classList.remove('open');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
