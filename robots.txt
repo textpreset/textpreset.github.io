@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://textpreset.github.io/sitemap.xml
