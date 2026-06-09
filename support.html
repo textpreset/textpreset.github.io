@@ -102,6 +102,78 @@
           "@type": "Answer",
           "text": "Yes. Your phrases are stored on-device and synced privately through Apple's CloudKit (linked to your Apple ID). We never see the content of your phrases."
         }
+      },
+      {
+        "@type": "Question",
+        "name": "What variable types are available in phrases?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Text Preset supports free-text inputs like {{customer name}}, dropdown pickers like {{option1; option2}}, auto-filled dates like {{@date}}, times like {{@time}}, interactive date and time pickers, number inputs, random selections, multi-select checklists, clipboard insertion with {{@clipboard}}, cursor positioning with {{@cursor}}, and Global Properties with {{@property=key}}."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I auto-fill today's date in a phrase?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use {{@date}} in your phrase text — it automatically inserts the current date when you copy or insert the phrase. You can use offsets like {{@date +7}} for a week from now, or format specifiers like {{@date=long}} for June 9, 2026."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do conditional blocks work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Wrap optional sections with {{@blockstart=Name}} and {{@blockend}}. When you copy the phrase, a checklist lets you pick which blocks to include — perfect for email templates where some paragraphs are optional."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I reuse one phrase inside another?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes — set an alias on a phrase (e.g. sig) and reference it from any other phrase using {{@phrase=sig}}. The referenced phrase is expanded automatically at insert time. Great for shared signatures or boilerplate text."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What are Global Properties and when should I use them?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Global Properties are key-value pairs you set once in Settings → Global Properties and reference in any phrase with {{@property=key}}. For example, set name → Alex Johnson — then all your signature phrases update automatically when you change that value."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What are Custom Lists and how are they different from picker variables?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Custom Lists (Pro) are reusable sets of values managed in Settings → Custom Lists. Reference them with {{@list=My List}} in any phrase. Unlike inline picker options written directly in the phrase, Custom Lists are centralised — update the list once and every phrase using it gets the new options automatically."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I insert the clipboard contents into a phrase?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Add {{@clipboard}} anywhere in your phrase text. When the phrase is inserted, this token is automatically replaced with whatever is currently on the clipboard — no user interaction needed."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I import phrases from a spreadsheet or CSV file?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, with a Pro subscription. Go to Settings → Import CSV and select your file. The first column is the phrase text; additional columns are tag names. Commas and semicolons are both supported as separators, and a header row is automatically detected and skipped."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is Smart Rewrite?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Smart Rewrite uses Apple Intelligence (on-device AI) to generate Formal, Brief, and Friendly variants of your phrase without leaving the keyboard. Long-press any phrase chip in the keyboard to see the rewrite options. Requires Pro, iOS 26 or later, and Apple Intelligence enabled on your device."
+        }
       }
     ]
   }
@@ -118,6 +190,7 @@
     <ul class="nav-links">
       <li><a href="index.html#features">Features</a></li>
       <li><a href="index.html#pricing">Pricing</a></li>
+      <li><a href="docs.html">Docs</a></li>
       <li><a href="support.html">Support</a></li>
       <li><a href="https://apps.apple.com/us/app/text-preset-keyboard-phrases/id6762204686"
           target="_blank"
@@ -213,8 +286,63 @@
   </div>
 
   <div class="faq-item">
+    <h4>What variable types are available in phrases?</h4>
+    <p>Text Preset supports a wide range of variables: free-text inputs like <code>{{customer name}}</code>, dropdown pickers like <code>{{option1; option2}}</code>, auto-filled dates like <code>{{@date}}</code> and times like <code>{{@time}}</code>, interactive date/time pickers, number inputs, random selections, multi-select checklists, clipboard insertion with <code>{{@clipboard}}</code>, cursor positioning with <code>{{@cursor}}</code>, and more. See the full <a href="docs.html#variables">Variables reference in the documentation</a>.</p>
+  </div>
+
+  <div class="faq-item">
+    <h4>How do I auto-fill today's date in a phrase?</h4>
+    <p>Use <code>{{@date}}</code> in your phrase text — it automatically inserts the current date when you copy or insert the phrase. You can also use offsets like <code>{{@date +7}}</code> for a week from now, or format specifiers like <code>{{@date=long}}</code> for "June 9, 2026". See all options in the <a href="docs.html#var-date">date variable documentation</a>.</p>
+  </div>
+
+  <div class="faq-item">
+    <h4>How do conditional blocks work?</h4>
+    <p>Wrap optional sections of your phrase with <code>{{@blockstart=Name}}</code> and <code>{{@blockend}}</code>. When you copy the phrase, a checklist lets you pick which blocks to include — perfect for email templates where you might want an apology paragraph in some cases but not others. Learn more in the <a href="docs.html#var-blocks">conditional blocks documentation</a>.</p>
+  </div>
+
+  <div class="faq-item">
+    <h4>Can I reuse one phrase inside another?</h4>
+    <p>Yes — set an alias on a phrase (e.g. <code>sig</code>) and reference it from any other phrase using <code>{{@phrase=sig}}</code>. The referenced phrase is expanded automatically at insert time. This is great for keeping a shared signature or boilerplate in one place. See the <a href="docs.html#var-phrase">phrase reference documentation</a>.</p>
+  </div>
+
+  <div class="faq-item">
+    <h4>What are Global Properties and when should I use them?</h4>
+    <p>Global Properties are key-value pairs you set once in Settings → Global Properties and reference in any phrase with <code>{{@property=key}}</code>. For example, set <code>name → Alex Johnson</code> and <code>email → alex@company.com</code> — then all your signature phrases update automatically when you change the value. See the <a href="docs.html#global-properties">Global Properties documentation</a>.</p>
+  </div>
+
+  <div class="faq-item">
+    <h4>What are Custom Lists and how are they different from picker variables?</h4>
+    <p>Custom Lists (Pro) are reusable sets of values managed in Settings → Custom Lists. Reference them with <code>{{@list=My List}}</code> in any phrase. Unlike inline picker options written directly in the phrase, Custom Lists are centralised — update the list once and every phrase using it gets the new options automatically. Full details in the <a href="docs.html#custom-lists">Custom Lists documentation</a>.</p>
+  </div>
+
+  <div class="faq-item">
+    <h4>How do I insert the clipboard contents into a phrase?</h4>
+    <p>Add <code>{{@clipboard}}</code> anywhere in your phrase text. When the phrase is inserted, this token is automatically replaced with whatever is currently on the clipboard — no user interaction needed. Useful for wrapping a copied URL or text snippet inside a fixed template. See the <a href="docs.html#var-clipboard">clipboard variable documentation</a>.</p>
+  </div>
+
+  <div class="faq-item">
+    <h4>How do I organise phrases with tags and filter them in the keyboard?</h4>
+    <p>Create colour-coded tags in Settings → Tags, then assign them to phrases in the editor. In the keyboard, the top row shows your tags — tap one or more to filter the phrase list. You can switch between "Any tag" (OR) and "All tags" (AND) filter modes. Learn more in the <a href="docs.html#tags">tags documentation</a>.</p>
+  </div>
+
+  <div class="faq-item">
+    <h4>Can I import phrases from a spreadsheet or CSV file?</h4>
+    <p>Yes, with a Pro subscription. Go to Settings → Import CSV and select your file. The first column is the phrase text; additional columns are tag names. Commas and semicolons are both supported as separators, and a header row is automatically detected and skipped. See the exact format in the <a href="docs.html#import-export">import/export documentation</a>.</p>
+  </div>
+
+  <div class="faq-item">
+    <h4>What does "Format on Insert" do?</h4>
+    <p>When enabled in Settings, each phrase chip in the keyboard shows three buttons: UPPER, Title, and lower. Tap a button instead of the chip to insert the phrase in that casing — handy for phrases you use in different contexts like email subject lines vs. body text.</p>
+  </div>
+
+  <div class="faq-item">
+    <h4>What is Smart Rewrite?</h4>
+    <p>Smart Rewrite uses Apple Intelligence (on-device AI) to generate Formal, Brief, and Friendly variants of your phrase without leaving the keyboard. Long-press any phrase chip in the keyboard to see the rewrite options. Requires Pro, iOS 26 or later, and Apple Intelligence enabled on your device. Learn more in the <a href="docs.html#smart-rewrite">Smart Rewrite documentation</a>.</p>
+  </div>
+
+  <div class="faq-item">
     <h4>I have a question that isn't answered here. What should I do?</h4>
-    <p>Email us at <a href="mailto:textpreset.app@gmail.com">textpreset.app@gmail.com</a> — we read every message and reply personally.</p>
+    <p>Email us at <a href="mailto:textpreset.app@gmail.com">textpreset.app@gmail.com</a> — we read every message and reply personally. You can also browse the full <a href="docs.html">documentation</a> for detailed guides on every feature.</p>
   </div>
 </div>
 
