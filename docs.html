@@ -562,6 +562,8 @@
         <li class="sub-item"><a href="#var-blocks">Conditional blocks</a></li>
         <li class="sub-item"><a href="#var-clipboard">Clipboard</a></li>
         <li class="sub-item"><a href="#var-cursor">Cursor position</a></li>
+        <li class="sub-item"><a href="#var-counter">Counter</a></li>
+        <li class="sub-item"><a href="#var-ai">AI Generate</a></li>
         <li class="sub-item"><a href="#var-property">Global property</a></li>
         <li><a href="#date-formats">Date &amp; time formats</a></li>
       </ul>
@@ -580,6 +582,7 @@
         <li><a href="#global-properties">Global Properties</a></li>
         <li><a href="#smart-rewrite">Smart Rewrite</a></li>
         <li><a href="#statistics">Statistics</a></li>
+        <li><a href="#confidential">Confidential Phrases</a></li>
       </ul>
     </div>
     <div class="sidebar-group">
@@ -587,6 +590,7 @@
       <ul class="sidebar-nav">
         <li><a href="#template-packs">Template Packs</a></li>
         <li><a href="#import-export">Import &amp; Export</a></li>
+        <li><a href="#spotlight">Spotlight Search</a></li>
         <li><a href="#settings">Settings</a></li>
       </ul>
     </div>
@@ -1157,7 +1161,7 @@ Thank you for your email. I will get back to you shortly.</div>
 
       <!-- Global property -->
       <div class="docs-subsection" id="var-property">
-        <h3>Global Property</h3>
+        <h3>Global Property <span class="var-pro-badge">Pro</span></h3>
         <div class="var-card">
           <div class="var-card-header">
             <span class="var-badge">{{@property=key}}</span>
@@ -1345,7 +1349,7 @@ Thank you for your email. I will get back to you shortly.</div>
         <span class="section-icon">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
         </span>
-        Global Properties
+        Global Properties <span class="var-pro-badge">Pro</span>
       </h2>
       <p>Global Properties are key-value pairs saved once and reused across all your phrases via <code>{{@property=key}}</code>. Change a value once — every phrase that uses that key updates instantly. Perfect for your name, job title, company, or any piece of info you repeat in many templates.</p>
 
@@ -1421,6 +1425,37 @@ Thank you for your email. I will get back to you shortly.</div>
           <li><strong>Most used phrase</strong> — your top phrase by insertion count</li>
           <li><strong>Usage streak</strong> — consecutive days you've used Text Preset</li>
         </ul>
+      </div>
+    </section>
+
+    <!-- ── Confidential Phrases ── -->
+    <section class="docs-section" id="confidential">
+      <h2>
+        <span class="section-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </span>
+        Confidential Phrases <span class="var-pro-badge">Pro</span>
+      </h2>
+      <p>Mark any phrase as confidential to hide its content from the phrase list and keyboard. Confidential phrases show only the alias (if set) or blurred text — the content is revealed only after Face ID or passcode authentication.</p>
+
+      <div class="pro-box">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>Requires Pro. Authentication uses Face ID or your passcode — phrase content is stored only on your device.</span>
+      </div>
+
+      <div class="docs-subsection">
+        <h3>Marking a phrase as confidential</h3>
+        <p>Open any phrase for editing and toggle <strong>Confidential</strong> in the editor. Once saved, the phrase shows only its alias or blurred text in the list instead of the actual content.</p>
+      </div>
+
+      <div class="docs-subsection">
+        <h3>Unlocking confidential phrases</h3>
+        <p>Tap a confidential phrase in the main app to trigger Face ID or passcode authentication. Once authenticated, all confidential phrases are revealed for the current session. Switching away from the app or locking the screen resets the session.</p>
+      </div>
+
+      <div class="docs-subsection">
+        <h3>Keyboard</h3>
+        <p>Confidential phrases are hidden in the keyboard as well. Tapping a confidential chip triggers authentication — Face ID works directly in the keyboard when Full Access is enabled.</p>
       </div>
     </section>
 
@@ -1506,6 +1541,44 @@ Best regards,Signatures</div>
       <div class="docs-subsection">
         <h3>Save from any app</h3>
         <p>Use the iOS share sheet in Safari, Notes, Mail, or any other app — tap <strong>Share → Text Preset</strong> to save the selected text or URL directly as a new phrase.</p>
+      </div>
+    </section>
+
+    <!-- ── Spotlight Search ── -->
+    <section class="docs-section" id="spotlight">
+      <h2>
+        <span class="section-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </span>
+        Spotlight Search
+      </h2>
+      <p>Text Preset integrates with iOS Spotlight so you can find and copy any phrase without opening the app. Search from the Home Screen search bar, tap a result, and the phrase is instantly copied to your clipboard.</p>
+
+      <div class="docs-subsection">
+        <h3>How to use</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <h4>Open Spotlight</h4>
+              <p>Swipe down from the middle of the Home Screen to open iOS Spotlight search.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <h4>Search for a phrase</h4>
+              <p>Type any word from your phrase text or a tag name — matching phrases appear in the search results.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <h4>Tap to copy</h4>
+              <p>Tap any result and the phrase is instantly copied to your clipboard. No need to open the Text Preset app.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 

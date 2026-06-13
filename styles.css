@@ -228,7 +228,7 @@ nav {
   display: flex;
   gap: 18px;
   overflow-x: auto;
-  padding: 12px 28px 24px;
+  padding: 12px 0 24px;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
@@ -236,6 +236,14 @@ nav {
 }
 
 .screenshots-track::-webkit-scrollbar { display: none; }
+
+.screenshots-track::before,
+.screenshots-track::after {
+  content: '';
+  display: block;
+  min-width: 28px;
+  flex-shrink: 0;
+}
 
 .screenshot-item {
   flex: 0 0 auto;
@@ -512,6 +520,41 @@ nav {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8l3 3 6-6' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E");
 }
 
+/* ── FAQ strip ── */
+.faq-strip {
+  padding: 96px 28px;
+  background: var(--bg);
+}
+
+.faq-grid {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.faq-card {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+}
+
+.faq-card h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.faq-card p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
 /* ── CTA band ── */
 .cta-band {
   padding: 96px 28px;
@@ -743,5 +786,6 @@ footer p { font-size: 13px; text-align: center; }
 
 @media (max-width: 480px) {
   .screenshot-item { width: 180px; }
-  .screenshots-track { padding: 12px 20px 24px; }
+  .screenshots-track::before,
+  .screenshots-track::after { min-width: 20px; }
 }
